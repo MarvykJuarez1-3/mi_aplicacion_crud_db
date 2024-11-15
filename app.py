@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from config import Config
-from models import db, Producto
+from models import Producto  # Importa Producto, pero no db
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Inicializa db después de la configuración
+from models import db  # Ahora puedes importar db después de la inicialización de app
 db.init_app(app)
 
 @app.route('/')
