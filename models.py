@@ -1,19 +1,11 @@
-# app.py
-from flask import Flask
-from models import db, Producto  # Aquí se importa 'db' y 'Producto' desde models.py
+from app import db
 
-app = Flask(__name__)
+class Producto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    descripcion = db.Column(db.String(200), nullable=False)
+    precio = db.Column(db.Float, nullable=False)
 
-# Configuración de la base de datos, puedes poner la URL de la base de datos
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://<usuario>:<contraseña>@<host>:<puerto>/<nombre_de_base_de_datos>'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Esto es para desactivar las advertencias innecesarias
+    def __repr__(self):
+        return f'<Producto {self.nombre}>'
 
-# Inicializa la base de datos aquí, después de la importación de 'db' desde 'models.py'
-db.init_app(app)
-
-@app.route('/')
-def index():
-    return 'Hola, Mundo'
-
-if __name__ == '__main__':
-    app.run(debug=True)

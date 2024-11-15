@@ -4,6 +4,8 @@ from models import db, Producto
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Inicializa db después de la configuración
 db.init_app(app)
 
 @app.route('/')
