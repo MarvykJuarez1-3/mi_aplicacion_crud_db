@@ -4,8 +4,6 @@ from models import db, Producto
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
-# Inicializa db después de la configuración
 db.init_app(app)
 
 @app.route('/')
@@ -29,7 +27,7 @@ def add_producto():
         db.session.add(nuevo_producto)
         db.session.commit()
         return redirect(url_for('index'))
-    
+
     return render_template('add.html')
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
